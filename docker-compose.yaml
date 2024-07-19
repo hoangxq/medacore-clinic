@@ -1,0 +1,47 @@
+services:
+  backend:
+    build: medacore-clinic-api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/medacore_clinic_db?autoReconnect=true&useSSL=false
+      MYSQL_USER: root
+      MYSQL_PASSWORD: P@ssw0rd
+    networks:
+      - medacore-clinic-app
+      - medacore-mysql
+    ports:
+      - 8080:8080
+  db:
+    image: mysql:8.0.19
+    environment:
+      - MYSQL_DATABASE=medacore_clinic_db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=P@ssw0rd
+      - MYSQL_ROOT_PASSWORD=P@ssw0rd
+    command:
+    - --bind-address=0.0.0.0
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - medacore-mysql
+    ports:
+      - 3307:3306
+  frontend:
+    build:
+      context: medacore-clinic-ui
+    ports:
+      - 4200:4200
+    volumes:
+      - ./angular:/project
+      - /medacore-clinic-ui/node_modules
+    networks:
+      - medacore-clinic-app
+    depends_on:
+      - backend
+    expose:
+      - 3306
+      - 33060
+volumes:
+  db-data: {}
+networks:
+  medacore-clinic-app: {}
+  medacore-mysql: {}

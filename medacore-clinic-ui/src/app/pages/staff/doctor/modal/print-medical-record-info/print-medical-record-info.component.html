@@ -1,0 +1,89 @@
+<div class="" id="printContent">
+    <!-- Phần header -->
+    <div class="header">
+        <!-- Logo và tên phòng khám -->
+        <div class="clinic">
+            <img src="logo.png" alt="Logo Phòng Khám">
+            <p>Medacore Clinic</p>
+        </div>
+        <!-- Thông tin liên hệ -->
+        <div class="contact-info">
+            <p>Hotline: 0123 456 789</p>
+            <p>Email: info@phongkhamabc.com</p>
+        </div>
+        <!-- Thông tin địa chỉ -->
+        <div class="address-info">
+            <p>Địa chỉ: 123 Đường ABC, TP. HCM</p>
+            <p>Website: www.phongkhamabc.com</p>
+        </div>
+    </div>
+    <!-- Tiêu đề -->
+    <h1 class="title">Thông tin khám bệnh</h1>
+    <hr>
+    <!-- Phần thông tin bệnh nhân -->
+    <div class="patient-info">
+        <!-- Cột thông tin bệnh nhân -->
+        <div class="left-column">
+            <p><strong>Mã bệnh nhân:</strong> {{medicalRecordDto.patientDto.id}}</p>
+            <p><strong>Tên bệnh nhân:</strong> {{medicalRecordDto.patientDto.fullName}}</p>
+            <p><strong>Số bảo hiểm:</strong> 123456789</p>
+            <p><strong>Đối tượng:</strong> Bảo hiểm y tế</p>
+        </div>
+        <!-- Cột thông tin liên hệ -->
+        <div class="right-column">
+            <p><strong>Địa chỉ:</strong> {{medicalRecordDto.patientDto.address}}</p>
+            <p><strong>Số điện thoại:</strong> {{medicalRecordDto.patientDto.phoneNumber}}</p>
+            <p><strong>Ngày sinh:</strong> {{medicalRecordDto.patientDto.dateOfBirth | date: "dd/MM/yyyy"}}</p>
+            <p><strong>Giới tính:</strong> {{medicalRecordDto.patientDto.gender == 'male' ? "Nam" : "Nữ"}}</p>
+        </div>
+    </div>
+    <hr>
+    <!-- Phần thông tin xét nghiệm -->
+    <div class="diagnosis">
+        <p><strong>Nơi chỉ định:</strong> Medacore clinic</p>
+        <p><strong>Bác sĩ chỉ định:</strong> {{medicalRecordDto.staffDto.fullName}}</p>
+        <p><strong>Chuẩn đoán sơ bộ:</strong> {{medicalRecordInfoDto.diagnose}}</p>
+        <p><strong>Hướng điều trị:</strong> {{medicalRecordInfoDto.solution}}</p>
+        <p><strong>Thời gian khám bệnh:</strong> {{medicalRecordDto.time | date: "dd/MM/yyyy"}}</p>
+    </div>
+    <hr>
+
+    <!-- Bảng kết quả -->
+    <label>Thông tin khám bệnh</label>
+    <table class="results">
+        <tr>
+            <th>Cân nặng</th>
+            <th>Chiều cao</th>
+            <th>Nhiệt độ</th>
+            <th>Nhịp tim</th>
+            <th>Huyết áp</th>
+            <th>Chỉ số BMI</th>
+        </tr>
+        <tr>
+            <td>{{medicalRecordInfoDto.weight}} kg</td>
+            <td>{{medicalRecordInfoDto.height}} cm</td>
+            <td>{{medicalRecordInfoDto.bodyTemperature}} ℃</td>
+            <td>{{medicalRecordInfoDto.heartbeat}} lần/phút</td>
+            <td>{{medicalRecordInfoDto.bloodPressure}} mmHG</td>
+            <td>{{bmiValue}}</td>
+        </tr>
+        <!-- Các dòng khác tương tự -->
+    </table>
+    <hr>
+
+    <label>Khám bệnh chi tiết</label>
+    <div [innerHTML]="medicalRecordInfoDto.detailMedical"></div>
+    
+
+    <!-- Phần chân trang -->
+    <div class="footer">
+        <!-- Phần chữ ký -->
+        <p class="signature">Bác sĩ khám bệnh</p>
+        <p class="signature">{{medicalRecordDto.staffDto.fullName}}</p>
+    </div>
+
+    <div *nzModalFooter id="no-print">
+        <button nz-button nzType="default" (click)="destroyModal()">Hủy</button>
+        <button nz-button nzType="primary" (click)="onPrint()">In thông tin</button>
+    </div>
+</div>

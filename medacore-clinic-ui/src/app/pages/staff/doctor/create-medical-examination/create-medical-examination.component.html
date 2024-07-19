@@ -1,0 +1,230 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-doctor-sidebar></app-doctor-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <app-doctor-header-control [medicalRecordId]="medicalRecordId" [option]="'INFO'">
+                        </app-doctor-header-control>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item">Ca khám #{{medicalRecordId}}</li>
+                            <li class="breadcrumb-item active">Khám bệnh</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content" id="pdfContent">
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Thông tin bệnh nhân</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Họ tên</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.fullName"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Dân tộc</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.ethnic"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Ngày sinh</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.dateOfBirth | date : 'dd/MM/yyyy'" disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Giới tính</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.gender == 'male' ? 'Nam' : 'Nữ'" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.phoneNumber" disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Công việc</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.job"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.address"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Mô tả</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.description" placeholder="None" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Hỏi bệnh</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <form nz-form nzLayout="vertical" [formGroup]="validateForm">
+                        <div nz-row nzGutter="16">
+                            <div nz-col nzSm="4">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Cân nặng (kg)</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <input type="number" (change)="onChangeWeight()" formControlName="weight"
+                                            nz-input placeholder="Cân nặng (kg)" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="4">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Chiều cao (cm)</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <input (change)="onChangeWeight()" type="number" formControlName="height"
+                                            nz-input placeholder="Chiều cao (cm)" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="4">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Nhiệt độ (℃)</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <input type="number" formControlName="bodyTemperature" nz-input
+                                            placeholder="Nhiệt độ (℃)" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="4">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Nhịp tim (lần/phút)</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <input type="number" formControlName="heartbeat" nz-input
+                                            placeholder="Nhịp tim (lần/phút)" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="4">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Huyết áp (mmHG)</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <input type="number" formControlName="bloodPressure" nz-input
+                                            placeholder="Huyết áp (mmHG)" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="4">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Chỉ số BMI</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <input style="font-weight: bold;" type="number" nz-input [value]="bmiValue"
+                                            placeholder="Chỉ số BMI" disabled="" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                        <div nz-col nzSm="12">
+                            <nz-form-item>
+                                <nz-form-label>Tạo theo mẫu có sẵn</nz-form-label>
+                                <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                    <nz-select nzPlaceHolder="Lựa chọn" (ngModelChange)="onChangeTemplate($event)" formControlName="templateId">
+                                        <nz-option *ngFor="let item of listTemplate" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div nz-row>
+                            <nz-form-item>
+                                <nz-form-label nzRequired>Khám bệnh chi tiết</nz-form-label>
+                                <ckeditor nz-input formControlName="detailMedical" [(ngModel)]="description" [editor]="Editor"></ckeditor>
+                            </nz-form-item>
+                        </div>
+                        <div nz-row nzGutter="16">
+                            <div nz-col nzSm="12">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Chuẩn đoán ban đầu</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <textarea formControlName="diagnose" rows="4" nz-input
+                                            placeholder="Chuẩn đoán ban đầu"></textarea>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="12">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Hướng xử lý</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <textarea formControlName="solution" rows="4" nz-input
+                                            placeholder="Hướng xử lý"></textarea>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <button *ngIf="changeDataCheck" type="submit" class="btn btn-info" (click)="saveInfo()">Lưu thông
+                        tin</button>
+                    <div id="no-print">
+                        <a (click)="onPrint()" class="btn btn-info float-right" style="margin-right: 5px;">
+                            <i class="fas fa-print"></i> In thông tin
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

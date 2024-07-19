@@ -1,0 +1,100 @@
+<div>
+    <form nz-form nzLayout="vertical" [formGroup]="validateForm">
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Tên thuốc</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="name" placeholder="Tên thuốc" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Đơn vị</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="unit" placeholder="Đơn vị" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Giá thuốc</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input type="number" formControlName="price" placeholder="Giá thuốc" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Hoạt chất</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="activeElement" placeholder="Hoạt chất" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Hàm lượng</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="content" placeholder="Hàm lượng" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Đường dùng</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="using" placeholder="Đường dùng" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Quy cách đóng gói</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="packing" placeholder="Quy cách đóng gói" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Đơn vị sản xuất</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="productionUnit" placeholder="Đơn vị sản xuất" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Đơn vị kê khai</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="declaringUnit" placeholder="Đơn vị kê khai" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>Cách sử dụng</nz-form-label>
+                    <nz-form-control>
+                        <textarea rows="4" nz-input formControlName="useManual" placeholder="Cách sử dụng"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</div>
+<div *nzModalFooter>
+    <button nz-button nzType="default" (click)="destroyModal()">Hủy</button>
+    <button nz-button nzType="primary" (click)="createMedicine()">Thêm mới</button>
+</div>

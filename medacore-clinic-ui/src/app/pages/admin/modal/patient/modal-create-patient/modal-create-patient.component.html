@@ -1,0 +1,121 @@
+<div>
+  <form nz-form nzLayout="vertical" [formGroup]="validateForm">
+    <div nz-row nzGutter="16">
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Tên đăng nhập</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <input nz-input formControlName="username" placeholder="Tên đăng nhập" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Email</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <input nz-input formControlName="email" placeholder="Email" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="16">
+      <div nz-col nzSpan="10">
+        <nz-form-item>
+          <nz-form-label nzRequired>Mật khẩu</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <input nz-input formControlName="password" placeholder="Mật khẩu" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="16">
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Họ tên</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <input nz-input formControlName="fullName" placeholder="Họ tên" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Ngày sinh</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <nz-date-picker nzFormat="dd-MM-yyyy" formControlName="dateOfBirth"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="16">
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Dân tộc</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <input nz-input formControlName="ethnic" placeholder="Dân tộc" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Giới tính</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <nz-select formControlName="gender" nzPlaceHolder="Lựa chọn">
+              <nz-option nzValue="male" nzLabel="Nam"></nz-option>
+              <nz-option nzValue="female" nzLabel="Nữ"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="16">
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label>Công việc</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="job" placeholder="Công việc" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Số điện thoại</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <input nz-input formControlName="phoneNumber" placeholder="Số điện thoại" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="16">
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Địa chỉ</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <input nz-input formControlName="address" placeholder="Địa chỉ" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Địa chỉ chi tiết</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <input nz-input formControlName="detailAddress" placeholder="Địa chỉ chi tiết" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="16">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>Chú thích</nz-form-label>
+          <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+            <textarea rows="4" nz-input formControlName="description" placeholder="Chú thích"></textarea> 
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</div>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="destroyModal()">Hủy</button>
+  <button nz-button nzType="primary" (click)="createPatient()">Thêm mới</button>
+</div>

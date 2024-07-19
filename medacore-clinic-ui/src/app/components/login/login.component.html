@@ -1,0 +1,43 @@
+<nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'">
+    <div class="hold-transition login-page">
+        <div class="login-logo">
+            <b>MedaCore </b>Clinic
+        </div>
+        <div class="login-box">
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg">Login to start your session</p>
+
+                    <form class="mb-3 needs-validation" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                <nz-input-group nzPrefixIcon="user">
+                                    <input type="text" nz-input formControlName="userName"
+                                        placeholder="Tên đăng nhập hoặc email" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                <nz-input-group nzPrefixIcon="lock">
+                                    <input type="password" nz-input formControlName="password" placeholder="Mật khẩu" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <div class="row">
+                            <div class="col-5 mt-2">
+                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+
+                    <p class="mb-0">
+                        <a (click)="showModalCreatePatient()" class="text-center">Register</a>
+                    </p>
+                </div>
+                <!-- /.login-card-body -->
+            </div>
+        </div>
+    </div>
+</nz-spin>

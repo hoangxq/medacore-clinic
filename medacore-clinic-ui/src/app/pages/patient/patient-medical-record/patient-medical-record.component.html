@@ -1,0 +1,119 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-patient-sidebar></app-patient-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Lịch sử khám bệnh</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Danh sách khám bệnh</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Danh sách khám bệnh</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <nz-table nzShowSizeChanger nzBordered="true" #filterTable [nzData]="listOfDisplayData"
+                        [nzFrontPagination]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+                        [nzPageIndex]="pageIndex">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Bệnh nhân
+                                </th>
+                                <th>Bác sĩ
+                                    <nz-filter-trigger [(nzVisible)]="visibleDoctorName"
+                                        [nzActive]="searchDoctorNameValue.length > 0" [nzDropdownMenu]="menuDoctorName">
+                                        <span nz-icon nzType="search"></span>
+                                    </nz-filter-trigger>
+                                </th>
+                                <th>Số điện thoại Bác sĩ
+                                    <nz-filter-trigger [(nzVisible)]="visibleDoctorPhoneNumber"
+                                        [nzActive]="searchDoctorPhoneNumberValue.length > 0"
+                                        [nzDropdownMenu]="menuDoctorPhoneNumber">
+                                        <span nz-icon nzType="search"></span>
+                                    </nz-filter-trigger>
+                                </th>
+                                <th>Chức vụ</th>
+                                <th>Chuyên môn</th>
+                                <th>Ngày khám</th>
+                                <th 
+                                    [(nzSortOrder)]="statusColumn.sortOrder" [nzSortFn]="statusColumn.sortFn"
+                                    [nzFilters]="statusColumn.listOfFilter" [nzFilterFn]="statusColumn.filterFn"
+                                    [nzShowFilter]="statusColumn.listOfFilter.length > 0">
+                                    {{ statusColumn.name }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr (click)="data.status == 'DONE' ? medicalExamination(data.id) : ''"
+                                *ngFor="let data of filterTable.data; let i= index" style="cursor: pointer;">
+                                <td>{{i}}</td>
+                                <td>{{ data.patientDto.fullName }}</td>
+                                <td>{{ data.staffDto.fullName }}</td>
+                                <td>{{ data.staffDto.phoneNumber }}</td>
+                                <td>{{ data.staffDto.position.name }}</td>
+                                <td>{{ data.staffDto.expertise.name }}</td>
+                                <td>{{ data.time | date: 'dd/MM/yyyy - HH:mm'}}</td>
+                                <td [style.color]="data.status == 'PENDING' ? 'orange' : data.status == 'ARRIVED' ?
+                                'blue' : data.status == 'DONE' ? 'green' : 'None'">
+                                
+                                    <b>{{ data.status == 'PENDING' ? 'Đang khám' : data.status == 'ARRIVED' ?
+                                        'Đã đến' : data.status == 'DONE' ? 'Đã khám' : 'None'}}</b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <nz-dropdown-menu #menuDoctorName="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                            <div class="search-box">
+                                <input type="text" nz-input placeholder="Search name"
+                                    [(ngModel)]="searchDoctorNameValue" />
+                                <button nz-button nzSize="small" nzType="primary" (click)="searchDoctorName()"
+                                    class="search-button">Search</button>
+                                <button nz-button nzSize="small" (click)="resetSearchDoctorName()">Reset</button>
+                            </div>
+                        </div>
+                    </nz-dropdown-menu>
+                    <nz-dropdown-menu #menuDoctorPhoneNumber="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                            <div class="search-box">
+                                <input type="text" nz-input placeholder="Search name"
+                                    [(ngModel)]="searchDoctorPhoneNumberValue" />
+                                <button nz-button nzSize="small" nzType="primary" (click)="searchDoctorPhoneNumber()"
+                                    class="search-button">Search</button>
+                                <button nz-button nzSize="small" (click)="resetSearchDoctorPhoneNumber()">Reset</button>
+                            </div>
+                        </div>
+                    </nz-dropdown-menu>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

@@ -1,0 +1,107 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-admin-sidebar></app-admin-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Quản lý nhân viên</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a [routerLink]="['/admin']">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Quản lý nhân viên</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Danh sách nhân viên</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <nz-space [nzSize]="10">
+                        <button nz-button *nzSpaceItem nzType="primary" (click)="showModalCreateStaff()">Thêm
+                            mới</button>
+                        <button nz-button *nzSpaceItem nzType="primary" routerLink="/admin/position-and-expertise">Quản
+                            lý chức vụ và chuyên môn</button>
+                    </nz-space>
+                    <br />
+                    <br />
+                    <nz-table nzShowSizeChanger nzBordered="true" #filterTable [nzData]="listOfDisplayData"
+                        [nzFrontPagination]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+                        [nzPageIndex]="pageIndex">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Số điện thoại
+                                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0"
+                                        [nzDropdownMenu]="menu">
+                                        <span nz-icon nzType="search"></span>
+                                    </nz-filter-trigger>
+                                </th>
+                                <th *ngFor="let column of listOfColumns; trackBy: trackByName"
+                                    [(nzSortOrder)]="column.sortOrder" [nzSortFn]="column.sortFn"
+                                    [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn"
+                                    [nzShowFilter]="column.listOfFilter.length > 0">
+                                    {{ column.name }}
+                                </th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of filterTable.data; let i= index">
+                                <td>{{i}}</td>
+                                <td>{{ data.phoneNumber }}</td>
+                                <td>{{ data.fullName }}</td>
+                                <td>{{ data.dateOfBirth | date: "dd/MM/yyyy"}}</td>
+                                <td>{{ data.position.name }}</td>
+                                <td>{{ data.expertise.name }}</td>
+                                <td>{{ data.address }}</td>
+                                <td>{{ data.gender == "male" ? "Nam" : data.gender == "female" ? "Nữ" : "Khác"}}</td>
+                                <td>{{ data.accountDto.authority == 'ROLE_ADMIN' ?
+                                    'Quản lý' : data.accountDto.authority == 'ROLE_DOCTOR' ? 'Bác sĩ' : 'Điều dưỡng'}}</td>
+                                <td [nzRight]="false">
+                                    <a (click)="editStaff(data.id)" routerLink="/admin/staff"><span nz-icon
+                                            nzType="edit" nzTheme="outline"></span></a>
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <a (click)="removeStaff()" routerLink="/admin/staff"><span nz-icon
+                                            nzType="delete" nzTheme="outline"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                            <div class="search-box">
+                                <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                                <button nz-button nzSize="small" nzType="primary" (click)="search()"
+                                    class="search-button">Search</button>
+                                <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                            </div>
+                        </div>
+                    </nz-dropdown-menu>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

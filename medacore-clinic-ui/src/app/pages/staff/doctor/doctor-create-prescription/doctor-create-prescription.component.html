@@ -1,0 +1,221 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-doctor-sidebar></app-doctor-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <app-doctor-header-control [medicalRecordId]="medicalRecordId" [option]="'PRESCRIPTION'">
+                        </app-doctor-header-control>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item">Ca khám #{{medicalRecordId}}</li>
+                            <li class="breadcrumb-item active">Đơn thuốc</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content" id="pdfContent">
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Thông tin bệnh nhân</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Họ tên</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.fullName"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Dân tộc</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.ethnic"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Ngày sinh</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.dateOfBirth | date : 'dd/MM/yyyy'" disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Giới tính</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.gender == 'male' ? 'Nam' : 'Nữ'" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.phoneNumber" disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Công việc</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.job"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.address"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Mô tả</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.description" placeholder="None" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Đơn thuốc</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <form nz-form nzLayout="vertical" [formGroup]="validateForm" class="no-print">
+                        <div nz-row nzGutter="16">
+                            <div nz-col nzSm="9">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Chọn loại thuốc</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <nz-select formControlName="medicineId" nzPlaceHolder="Lựa chọn">
+                                            <nz-option *ngFor="let item of listMedicines" [nzValue]="item.id"
+                                                [nzLabel]="item.name"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="3">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Đơn giá</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <input nz-input type="text" [value]="fixPrice" disabled placeholder="Giá">
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="3">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Số lượng</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <input min="1" formControlName="quantity" nz-input type="number"
+                                            placeholder="Số lượng">
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="5">
+                                <nz-form-item>
+                                    <nz-form-label>Ghi chú</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <input formControlName="note" nz-input type="text" placeholder="Ghi chú">
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSm="2">
+                                <nz-form-item>
+                                    <nz-form-label></nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <button (click)="addMedicines()" nz-button class="add-button">
+                                            <span style="font-size: 20px;" nz-icon nzType="plus-circle"
+                                                nzTheme="outline"></span>
+                                        </button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                    </form>
+                    <nz-form-label>Danh sách thuốc</nz-form-label>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên thuốc</th>
+                                <th>Số lượng</th>
+                                <th>Bảng giá</th>
+                                <th>Thành tiền</th>
+                                <th>Ghi chú</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of listMedicinesData; let i= index">
+                                <td>{{i}}</td>
+                                <td>{{ data.medicineDto.name }}</td>
+                                <td>{{ data.quantity }}</td>
+                                <td>{{ data.medicineDto.price.toLocaleString().replaceAll(",",
+                                    ".")}} đ</td>
+                                <td>{{ (data.medicineDto.price * data.quantity).toLocaleString().replaceAll(",",
+                                    ".")}} đ</td>
+                                <td>{{ data.note == undefined || data.note == "" ? 'None' : data.note}}
+                                </td>
+                                <td>
+                                    <a (click)="removeMedicine(data.medicineDto.id)"><span nz-icon nzType="delete"
+                                            nzTheme="outline"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <button *ngIf="changeDataCheck" type="submit" class="btn btn-info" (click)="saveInfo()">Lưu thông
+                        tin</button>
+                    <div class="no-print">
+                        <a (click)="onPrint()" class="btn btn-info float-right" style="margin-right: 5px;">
+                            <i class="fas fa-print"></i> In thông tin
+                        </a>
+                        <!-- <a (click)="onGeneratePdf()" class="btn btn-primary float-right" style="margin-right: 5px;">
+                            <i class="fas fa-download"></i> Xuất PDF
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

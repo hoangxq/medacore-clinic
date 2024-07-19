@@ -1,0 +1,28 @@
+<div>
+    <form nz-form nzLayout="vertical" [formGroup]="validateForm">
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="24">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Tên khoa</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="name" placeholder="Tên khoa" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="24">
+                <nz-form-item>
+                    <nz-form-label>Mô tả</nz-form-label>
+                    <nz-form-control>
+                        <textarea rows="4" nz-input formControlName="description" placeholder="Mô tả"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</div>
+<div *nzModalFooter>
+    <button nz-button nzType="default" (click)="destroyModal()">Hủy</button>
+    <button nz-button nzType="primary" (click)="updateDepartment()">Cập nhật</button>
+</div>

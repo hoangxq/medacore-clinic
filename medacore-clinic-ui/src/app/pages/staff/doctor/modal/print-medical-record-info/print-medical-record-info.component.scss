@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.invoice {
+    background-color: #fff;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Phần header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.contact-info, .address-info {
+    flex: 1;
+}
+
+/* Tiêu đề */
+.title {
+    text-align: center;
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+/* Phần thông tin bệnh nhân */
+.patient-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.left-column, .right-column {
+    flex: 1;
+}
+
+/* Bảng kết quả và các phần khác tương tự */
+.results {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.results th, .results td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Phần chân trang */
+.footer {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.date, .signature {
+    margin: 5px 0;
+}
+
+.pdf-hidden {
+    display: none !important;
+}

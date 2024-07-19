@@ -1,0 +1,59 @@
+<div>
+    <form nz-form nzLayout="vertical" [formGroup]="validateForm">
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label>Bệnh nhân</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input [disabled]="true" [value]="this.scheduleDto.patientDto.fullName" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label>Bác sĩ</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input [disabled]="true" [value]="this.scheduleDto.staffDto.fullName" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label>Ngày hẹn</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input [disabled]="true" [value]="this.scheduleDto.time" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label>Khung giờ</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input [disabled]="true" [value]="this.scheduleDto.timeFrame" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Trạng thái</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <nz-select formControlName="status" nzPlaceHolder="Lựa chọn">
+                            <nz-option nzValue="CANCELED" nzLabel="Đã hủy"></nz-option>
+                            <nz-option nzValue="PENDING" nzLabel="Đang xử lý"></nz-option>
+                            <nz-option nzValue="APPROVE" nzLabel="Đã duyệt"></nz-option>
+                            <nz-option nzValue="DONE" nzLabel="Đã đến khám"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</div>
+<div *nzModalFooter>
+    <button nz-button nzType="default" (click)="destroyModal()">Hủy</button>
+    <button nz-button nzType="primary" (click)="updateSchedule()">Cập nhật</button>
+</div>

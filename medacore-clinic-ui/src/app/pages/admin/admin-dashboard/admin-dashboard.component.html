@@ -1,0 +1,104 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-admin-sidebar></app-admin-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Trang chủ</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="content-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>{{patientNumber}}</h3>
+
+                                <p>Bệnh nhân</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a [routerLink]="['/admin/patient']" class="small-box-footer">Chi tiết <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>{{staffNumber}}</h3>
+
+                                <p>Nhân viên - Bác sĩ</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-stalker"></i>
+                            </div>
+                            <a [routerLink]="['/admin/staff']" class="small-box-footer">Chi tiết <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>{{serviceNumber}}</h3>
+
+                                <p>Dịch vụ</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-briefcase"></i>
+                            </div>
+                            <a [routerLink]="['/admin/services']" class="small-box-footer">Chi tiết <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>{{medicineNumber}}</h3>
+
+                                <p>Loại thuốc</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-medkit"></i>
+                            </div>
+                            <a [routerLink]="['/admin/medicine']" class="small-box-footer">Chi tiết <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

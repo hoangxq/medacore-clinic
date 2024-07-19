@@ -1,0 +1,133 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-admin-sidebar></app-admin-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Quản lý chức vụ và chuyên môn</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a [routerLink]="['/admin']">Trang chủ</a></li>
+                            <li class="breadcrumb-item">Quản lý nhân viên</li>
+                            <li class="breadcrumb-item active">Quản lý chức vụ và chuyên môn</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Danh sách chức vụ</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <button nz-button nzType="primary" (click)="showModalCreatePosition()">Thêm
+                                mới</button>
+                            <br />
+                            <br />
+                            <nz-table nzShowSizeChanger nzBordered="true" #filterTablePosition [nzData]="listPosition"
+                                [nzFrontPagination]="true" [nzLoading]="loading1" [nzTotal]="total"
+                                [nzPageSize]="pageSize" [nzPageIndex]="pageIndex">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th *ngFor="let column of listOfColumnsPosition; trackBy: trackByName"
+                                            [(nzSortOrder)]="column.sortOrder" [nzSortFn]="column.sortFn"
+                                            [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn"
+                                            [nzShowFilter]="column.listOfFilter.length > 0">
+                                            {{ column.name }}
+                                        </th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of filterTablePosition.data; let i= index">
+                                        <td>{{i}}</td>
+                                        <td>{{ data.name }}</td>
+                                        <td>{{ data.description == undefined || data.description == "" ? 'None' : data.description}}</td>
+                                        <td [nzRight]="false">
+                                            <a (click)="editPosition(data.id)"
+                                                routerLink="/admin/position-and-expertise"><span nz-icon nzType="edit"
+                                                    nzTheme="outline"></span></a>
+                                            <nz-divider nzType="vertical"></nz-divider>
+                                            <a (click)="removePosition()"
+                                                routerLink="/admin/position-and-expertise"><span nz-icon nzType="delete"
+                                                    nzTheme="outline"></span></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </nz-table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Danh sách chuyên môn</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <button nz-button nzType="primary" (click)="showModalCreateExpertise()">Thêm
+                                mới</button>
+                            <br />
+                            <br />
+                            <nz-table nzShowSizeChanger nzBordered="true" #filterTableExpertise [nzData]="listExpertise"
+                                [nzFrontPagination]="true" [nzLoading]="loading2" [nzTotal]="total"
+                                [nzPageSize]="pageSize" [nzPageIndex]="pageIndex">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th *ngFor="let column of listOfColumnsExpertise; trackBy: trackByName"
+                                            [(nzSortOrder)]="column.sortOrder" [nzSortFn]="column.sortFn"
+                                            [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn"
+                                            [nzShowFilter]="column.listOfFilter.length > 0">
+                                            {{ column.name }}
+                                        </th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of filterTableExpertise.data; let i= index">
+                                        <td>{{i}}</td>
+                                        <td>{{ data.name }}</td>
+                                        <td>{{ data.description == undefined || data.description == "" ? 'None' : data.description}}</td>
+                                        <td [nzRight]="false">
+                                            <a (click)="editExpertise(data.id)"
+                                                routerLink="/admin/position-and-expertise"><span nz-icon nzType="edit"
+                                                    nzTheme="outline"></span></a>
+                                            <nz-divider nzType="vertical"></nz-divider>
+                                            <a (click)="removeExpertise()"
+                                                routerLink="/admin/position-and-expertise"><span nz-icon nzType="delete"
+                                                    nzTheme="outline"></span></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </nz-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

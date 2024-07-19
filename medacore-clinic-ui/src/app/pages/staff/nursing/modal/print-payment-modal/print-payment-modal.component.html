@@ -1,0 +1,135 @@
+<div class="" id="printContent">
+    <!-- Phần header -->
+    <div class="header">
+        <!-- Logo và tên phòng khám -->
+        <div class="clinic">
+            <img src="logo.png" alt="Logo Phòng Khám">
+            <p>Medacore Clinic</p>
+        </div>
+        <!-- Thông tin liên hệ -->
+        <div class="contact-info">
+            <p>Hotline: 0123 456 789</p>
+            <p>Email: info@phongkhamabc.com</p>
+        </div>
+        <!-- Thông tin địa chỉ -->
+        <div class="address-info">
+            <p>Địa chỉ: 123 Đường ABC, TP. HCM</p>
+            <p>Website: www.phongkhamabc.com</p>
+        </div>
+    </div>
+    <!-- Tiêu đề -->
+    <h1 class="title">Hóa đơn khám bệnh</h1>
+    <hr>
+    <!-- Phần thông tin bệnh nhân -->
+    <div class="patient-info">
+        <!-- Cột thông tin bệnh nhân -->
+        <div class="left-column">
+            <p><strong>Mã bệnh nhân:</strong> {{medicalRecordDto.patientDto.id}}</p>
+            <p><strong>Tên bệnh nhân:</strong> {{medicalRecordDto.patientDto.fullName}}</p>
+            <p><strong>Số bảo hiểm:</strong> 123456789</p>
+            <p><strong>Đối tượng:</strong> Bảo hiểm y tế</p>
+        </div>
+        <!-- Cột thông tin liên hệ -->
+        <div class="right-column">
+            <p><strong>Địa chỉ:</strong> {{medicalRecordDto.patientDto.address}}</p>
+            <p><strong>Số điện thoại:</strong> {{medicalRecordDto.patientDto.phoneNumber}}</p>
+            <p><strong>Ngày sinh:</strong> {{medicalRecordDto.patientDto.dateOfBirth | date: "dd/MM/yyyy"}}</p>
+            <p><strong>Giới tính:</strong> {{medicalRecordDto.patientDto.gender == 'male' ? "Nam" : "Nữ"}}</p>
+        </div>
+    </div>
+    <hr>
+    <!-- Phần thông tin xét nghiệm -->
+    <div class="diagnosis">
+        <p><strong>Nơi chỉ định:</strong> Medacore clinic</p>
+        <p><strong>Bác sĩ chỉ định:</strong> {{medicalRecordDto.staffDto.fullName}}</p>
+        <p><strong>Chuẩn đoán sơ bộ:</strong> Suy giảm chức năng gan</p>
+        <p><strong>Thời gian khám bệnh:</strong> {{medicalRecordDto.time | date: "dd/MM/yyyy"}}</p>
+    </div>
+    <hr>
+
+    <!-- Bảng kết quả -->
+    <label>Dịch vụ khám bệnh</label>
+    <table class="results">
+        <tr>
+            <th>STT</th>
+            <th>Tên dịch vụ</th>
+            <th>Bảng giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            <th>Ghi chú</th>
+            <th>Khoa thực hiện</th>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>Khám chữa bệnh</td>
+            <td>200.000 đ</td>
+            <td>1</td>
+            <td>200.000 đ</td>
+            <td>None
+            </td>
+            <td>Khoa chuẩn đoán bệnh</td>
+        </tr>
+        <tr *ngFor="let data of listServiceOfMedicalTestDto let i= index">
+            <td>{{i+1}}</td>
+            <td>{{ data.serviceDto.name }}</td>
+            <td>{{ data.serviceDto.price.toLocaleString().replaceAll(",",
+                ".")}} đ</td>
+            <td>{{ data.quantity }}</td>
+            <td>{{ (data.serviceDto.price * data.quantity).toLocaleString().replaceAll(",",
+                ".")}} đ</td>
+            <td>{{ data.note == undefined || data.note == "" ? 'None' : data.note}}
+            </td>
+            <td>{{ data.serviceDto.department.name }}</td>
+        </tr>
+        <!-- Các dòng khác tương tự -->
+    </table>
+    <hr>
+
+    <label>Đơn thuốc</label>
+    <table class="results">
+        <tr>
+            <th>STT</th>
+            <th>Tên thuốc</th>
+            <th>Bảng giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            <th>Ghi chú</th>
+        </tr>
+        <tr *ngFor="let data of listMedicines; let i= index">
+            <td>{{i}}</td>
+            <td>{{ data.medicineDto.name }}</td>
+            <td>{{ data.medicineDto.price.toLocaleString().replaceAll(",",
+                ".")}} đ</td>
+            <td>{{ data.quantity }}</td>
+            <td>{{ (data.medicineDto.price * data.quantity).toLocaleString().replaceAll(",",
+                ".")}} đ</td>
+            <td>{{ data.note == undefined || data.note == "" ? 'None' : data.note}}
+            </td>
+        </tr>
+        <!-- Các dòng khác tương tự -->
+    </table>
+
+    <div class="float-right" style="margin-right: 10px;">
+        <label>Thành tiền: {{totalPrice.toLocaleString().replaceAll(",",
+            ".")}} đ</label><br>
+        <label>Bảo hiểm trả: {{healthInsurance.toLocaleString().replaceAll(",",
+            ".")}} đ</label><br>
+        <label>Bệnh nhân trả: {{patientPaid.toLocaleString().replaceAll(",",
+            ".")}} đ</label><br>
+    </div>
+    <br><br><br><br>
+
+    <!-- Phần chân trang -->
+    <div class="footer">
+        <!-- Phần ngày in -->
+        <p class="date">Hà Nội, ngày {{medicalRecordDto.time | date: "dd-MM-yyyy"}}</p>
+        <!-- Phần chữ ký -->
+        <p class="signature">Người thanh toán</p>
+        <p class="signature">(Ký ghi rõ họ tên)</p>
+    </div>
+
+    <div *nzModalFooter id="no-print">
+        <button nz-button nzType="default" (click)="destroyModal()">Hủy</button>
+        <button nz-button nzType="primary" (click)="onPrint()">In hóa đơn</button>
+    </div>
+</div>

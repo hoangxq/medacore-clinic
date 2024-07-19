@@ -1,0 +1,9 @@
+<nz-space>
+    <button *nzSpaceItem [routerLink]="['/doctor/medical-examination', medicalRecordId]" type="submit" class="btn"
+        [ngClass]="option == 'INFO' ? 'btn-primary': 'btn-info'">Khám bệnh</button>
+    <button *nzSpaceItem [routerLink]="['/doctor/specify-cls', medicalRecordId]" type="submit" class="btn"
+        [ngClass]="option == 'CLS' ? 'btn-primary': 'btn-info'">Chỉ định CLS</button>
+    <button *nzSpaceItem [routerLink]="['/doctor/prescription', medicalRecordId]" type="submit" class="btn"
+        [ngClass]="option == 'PRESCRIPTION' ? 'btn-primary': 'btn-info'">Đơn thuốc</button>
+    <button *nzSpaceItem (click)="saveMedicalRecord()" type="submit" class="btn btn-success">Hoàn thành</button>
+</nz-space>

@@ -1,0 +1,127 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-patient-sidebar></app-patient-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Quản lý lịch hẹn</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a [routerLink]="['/admin']">Trang chủ</a></li>
+                            <li class="breadcrumb-item">Quản lý lịch hẹn</li>
+                            <li class="breadcrumb-item active">Đăng ký khám bệnh</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Chọn một bác sĩ</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <nz-table nzShowSizeChanger nzBordered="true" #filterTableDoctor
+                                [nzData]="listOfDisplayDataDoctor" [nzFrontPagination]="true"
+                                [nzLoading]="loadingDoctor" [nzTotal]="totalDoctor" [nzPageSize]="pageSizeDoctor"
+                                [nzPageIndex]="pageIndexDoctor">
+                                <thead>
+                                    <tr>
+                                        <th>Số điện thoại
+                                            <nz-filter-trigger [(nzVisible)]="visibleDoctor"
+                                                [nzActive]="searchValueDoctor.length > 0" [nzDropdownMenu]="menuDoctor">
+                                                <span nz-icon nzType="search"></span>
+                                            </nz-filter-trigger>
+                                        </th>
+                                        <th *ngFor="let column of listOfColumnsDoctor; trackBy: trackByNameDoctor"
+                                            [(nzSortOrder)]="column.sortOrder" [nzSortFn]="column.sortFn"
+                                            [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn"
+                                            [nzShowFilter]="column.listOfFilter.length > 0">
+                                            {{ column.name }}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr [class.highlight]="rowSelectedDoctor == data.id" style="cursor: pointer;"
+                                        *ngFor="let data of filterTableDoctor.data; let i= index"
+                                        (click)="clickEventDoctor(data.id)">
+                                        <td>{{ data.phoneNumber }}</td>
+                                        <td>{{ data.fullName }}</td>
+                                        <td>{{ data.position.name }}</td>
+                                        <td>{{ data.expertise.name }}</td>
+                                        <td>{{ data.gender == "male" ? "Nam" : data.gender == "female" ? "Nữ" : "Khác"}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </nz-table>
+                            <nz-dropdown-menu #menuDoctor="nzDropdownMenu">
+                                <div class="ant-table-filter-dropdown">
+                                    <div class="search-box">
+                                        <input type="text" nz-input placeholder="Search name"
+                                            [(ngModel)]="searchValueDoctor" />
+                                        <button nz-button nzSize="small" nzType="primary" (click)="searchDoctor()"
+                                            class="search-button">Search</button>
+                                        <button nz-button nzSize="small" (click)="resetDoctor()">Reset</button>
+                                    </div>
+                                </div>
+                            </nz-dropdown-menu>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Chọn khung giờ khám</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form nz-form nzLayout="vertical" [formGroup]="validateForm">
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Ngày hẹn</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <nz-date-picker [nzDisabledDate]="disabledDate" nzFormat="dd-MM-yyyy"
+                                            formControlName="time"></nz-date-picker>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label nzRequired>Khung giờ</nz-form-label>
+                                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                        <nz-select formControlName="timeFrame" nzPlaceHolder="Lựa chọn">
+                                            <nz-option *ngFor="let item of listTimeFrame" [nzValue]="item"
+                                                [nzLabel]="item"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info" (click)="createSchedule()">Thêm mới lịch
+                                hẹn</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

@@ -1,0 +1,282 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-nursing-sidebar></app-nursing-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Thanh toán ca khám</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item">Ca khám #{{medicalRecordId}}</li>
+                            <li class="breadcrumb-item active">Thanh toán ca khám</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content" id="pdfContent">
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Thông tin bệnh nhân</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Họ tên</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.fullName"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Dân tộc</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.ethnic"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Ngày sinh</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.dateOfBirth | date : 'dd/MM/yyyy'" disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Giới tính</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.gender == 'male' ? 'Nam' : 'Nữ'" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.phoneNumber" disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Công việc</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.job"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                <input type="text" class="form-control" [value]="medicalRecordDto.patientDto.address"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Mô tả</label>
+                                <input type="text" class="form-control"
+                                    [value]="medicalRecordDto.patientDto.description" placeholder="None" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Chỉ định CLS</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <nz-table #dataTable [nzData]="listServicesData" nzShowSizeChanger nzBordered="true"
+                        [nzFrontPagination]="false">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên dịch vụ</th>
+                                <th>Bảng giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                                <th>Ghi chú</th>
+                                <th>Khoa thực hiện</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of dataTable.data let i= index">
+                                <td>{{i}}</td>
+                                <td>{{ data.serviceDto.name }}</td>
+                                <td>{{ data.serviceDto.price.toLocaleString().replaceAll(",",
+                                    ".")}} đ</td>
+                                <td>{{ data.quantity }}</td>
+                                <td>{{ (data.serviceDto.price * data.quantity).toLocaleString().replaceAll(",",
+                                    ".")}} đ</td>
+                                <td>{{ data.note == undefined || data.note == "" ? 'None' : data.note}}
+                                </td>
+                                <td>{{ data.serviceDto.department.name }}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-6">
+                            <label for="">Tổng tiền: {{totalCLSPrice.toLocaleString().replaceAll(",",
+                                ".")}} đ</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Đơn thuốc</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <nz-table #dataTablePres [nzData]="listMedicinesData" nzShowSizeChanger nzBordered="true"
+                        [nzFrontPagination]="false">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên thuốc</th>
+                                <th>Bảng giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                                <th>Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of dataTablePres.data; let i= index">
+                                <td>{{i}}</td>
+                                <td>{{ data.medicineDto.name }}</td>
+                                <td>{{ data.medicineDto.price.toLocaleString().replaceAll(",",
+                                    ".")}} đ</td>
+                                <td>{{ data.quantity }}</td>
+                                <td>{{ (data.medicineDto.price * data.quantity).toLocaleString().replaceAll(",",
+                                    ".")}} đ</td>
+                                <td>{{ data.note == undefined || data.note == "" ? 'None' : data.note}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-6">
+                            <label for="">Tổng tiền: {{totalPresPrice.toLocaleString().replaceAll(",",
+                                ".")}} đ</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Thu tiền</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <nz-table [nzData]="dataTableFake" [nzFrontPagination]="false">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Dịch vụ</th>
+                                <th>Tổng tiền</th>
+                                <th>Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0</td>
+                                <td>Khám bệnh</td>
+                                <td>200.000 đ</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Chỉ định CLS</td>
+                                <td>{{totalCLSPrice.toLocaleString().replaceAll(",",
+                                    ".")}} đ</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Đơn thuốc</td>
+                                <td>{{totalPresPrice.toLocaleString().replaceAll(",",
+                                    ".")}} đ</td>
+                                <td>None</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-6">
+                            <label for="">Tổng tiền cần thanh toán:</label>&nbsp;&nbsp;
+                            {{totalPrice.toLocaleString().replaceAll(",",
+                            ".")}} đ<br>
+                            <label for="">Trạng thái thanh toán:</label>&nbsp;&nbsp;
+                            {{medicalRecordDto.paymentStatus == 'PAID' ?
+                            'Đã thanh toán' : 'Chưa thanh toán'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div id="no-print">
+                        <a *ngIf="medicalRecordDto.paymentStatus == 'PAID'" (click)="onPrint()"
+                            class="btn btn-info float-right" style="margin-right: 5px;">
+                            <i class="fas fa-print"></i> In hóa đơn
+                        </a>
+                        <!-- <a *ngIf="medicalRecordDto.paymentStatus == 'PAID'" (click)="onGeneratePdf()"
+                            class="btn btn-primary float-right" style="margin-right: 5px;">
+                            <i class="fas fa-download"></i> Xuất PDF
+                        </a> -->
+                    </div>
+                    <button *ngIf="medicalRecordDto.paymentStatus == 'UNPAID'" type="button"
+                        class="btn btn-success float-right" (click)="acceptPayment()"><i class="far fa-credit-card"></i>
+                        Xác nhận thanh toán
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->

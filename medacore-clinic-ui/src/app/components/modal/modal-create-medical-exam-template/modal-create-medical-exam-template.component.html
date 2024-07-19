@@ -1,0 +1,36 @@
+<div>
+    <form nz-form nzLayout="vertical" [formGroup]="validateForm">
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Tên mẫu phiếu khám</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <input nz-input formControlName="name" placeholder="Tên mẫu phiếu khám" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSm="12">
+                <nz-form-item>
+                    <nz-form-label>Tạo theo mẫu có sẵn</nz-form-label>
+                    <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                        <nz-select nzPlaceHolder="Lựa chọn" (ngModelChange)="onChangeTemplate($event)" formControlName="templateId">
+                            <nz-option *ngFor="let item of listTemplate" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row nzGutter="16">
+            <div nz-col nzSm="24">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Nội dung mẫu phiếu khám</nz-form-label>
+                    <ckeditor nz-input formControlName="description" [(ngModel)]="description" [editor]="Editor"></ckeditor>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</div>
+<div *nzModalFooter>
+    <button nz-button nzType="default" (click)="destroyModal()">Hủy</button>
+    <button nz-button nzType="primary" (click)="createTemplate()">Thêm mới</button>
+</div>

@@ -1,0 +1,112 @@
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-admin-sidebar></app-admin-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Quản lý thuốc</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a [routerLink]="['/admin']">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Quản lý thuốc</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Danh sách thuốc</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <button nz-button nzType="primary" (click)="showModalCreateMedicine()">Thêm mới</button>
+                    <br />
+                    <br />
+                    <nz-table nzShowSizeChanger nzBordered="true" #filterTable [nzData]="listOfDisplayData"
+                        [nzFrontPagination]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+                        [nzPageIndex]="pageIndex">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên thuốc
+                                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0"
+                                        [nzDropdownMenu]="menu">
+                                        <span nz-icon nzType="search"></span>
+                                    </nz-filter-trigger>
+                                </th>
+                                <th *ngFor="let column of listOfColumns; trackBy: trackByName"
+                                    [(nzSortOrder)]="column.sortOrder" [nzSortFn]="column.sortFn"
+                                    [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn"
+                                    [nzShowFilter]="column.listOfFilter.length > 0">
+                                    {{ column.name }}
+                                </th>
+                                <th>Hoạt chất</th>
+                                <th>Hàm lượng</th>
+                                <th>Đường dùng</th>
+                                <th>Quy cách đóng gói</th>
+                                <th>Đơn vị sản xuất</th>
+                                <th>Đơn vị kê khai</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of filterTable.data; let i= index">
+                                <td>{{i}}</td>
+                                <td>{{ data.name }}</td>
+                                <td>{{ data.unit }}</td>
+                                <td>{{ data.price.toLocaleString().replaceAll(",",
+                                    ".")}} đ</td>
+                                <td>{{ data.useManual == undefined || data.useManual == "" ? 'None' : data.useManual}}
+                                </td>
+
+                                <td>{{ data.activeElement }}</td>
+                                <td>{{ data.content }}</td>
+                                <td>{{ data.using }}</td>
+                                <td>{{ data.packing }}</td>
+                                <td>{{ data.productionUnit }}</td>
+                                <td>{{ data.declaringUnit }}</td>
+                                <td [nzRight]="false">
+                                    <a (click)="editMedicine(data.id)" routerLink="/admin/medicine"><span nz-icon
+                                            nzType="edit" nzTheme="outline"></span></a>
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <a (click)="removeMedicine()" routerLink="/admin/medicine"><span nz-icon
+                                            nzType="delete" nzTheme="outline"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                            <div class="search-box">
+                                <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                                <button nz-button nzSize="small" nzType="primary" (click)="search()"
+                                    class="search-button">Search</button>
+                                <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                            </div>
+                        </div>
+                    </nz-dropdown-menu>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-footer></app-footer>
+</div>
+<!-- ./wrapper -->
