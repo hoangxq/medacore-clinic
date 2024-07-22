@@ -24,7 +24,7 @@ services:
     networks:
       - medacore-mysql
     ports:
-      - 3307:3306
+      - 3306:3306
   frontend:
     build:
       context: medacore-clinic-ui
